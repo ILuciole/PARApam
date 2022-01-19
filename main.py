@@ -39,7 +39,7 @@ def start(message):
 def get_week_days(message):
     db_object.execute("SELECT dayname FROM day")
     data = db_object.fetchall()
-    for i, item in enumerate(data):
+    for i, item in enumerate(data[1]):
         bot.reply_to(message, data.__str__())
         break
     update_messages_count(message.from_user.id)
