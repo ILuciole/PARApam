@@ -10,11 +10,8 @@ server = Flask(__name__)
 logger = telebot.logger
 logger.setLevel(logging.DEBUG)
 
-
-db_connetion = psycopg2.connect(DB_URI, sslmode="require")
-db_object = db_connetion.cursor()
-
-
+db_connection = psycopg2.connect(DB_URI, sslmode="require")
+db_object = db_connection.cursor()
 
 @bot.message_handler(commands=["start"])
 def start(message):
@@ -27,7 +24,7 @@ def start(message):
 
     if not result:
         db_object.execute("INSERT INTO users(id, username, messange) VALUES (%s, %s, %s)", (id, username, 0))
-        db_connetion.commit()
+        db_connection.commit()
 
 
 @server.route(f"/{BOT_TOKEN}", methods=["POST"])
@@ -36,6 +33,7 @@ def redirect_message():
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
     return "!", 200
+
 
 if __name__ == "__main__":
     bot.remove_webhook()
