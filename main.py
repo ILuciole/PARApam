@@ -15,10 +15,12 @@ if __name__ == '__main__':
     bot.set_webhook(url=APP_URL)
     server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 
+
 @bot.message_handler(commands=['start'])
 def start(message):
     username = message.from_user.usermname
-    bot.reply_to(message, f'Hello , {username}!')
+    bot.reply_to(message, f'Hello, {username}!')
+
 
 # Redirect from the Flask server to the bot
 @server.route('/' + BOT_TOKEN, methods=['POST'])
@@ -27,10 +29,3 @@ def redirect_message():
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
     return '!', 200
-
-
-
-
-
-
-
