@@ -1,8 +1,8 @@
 import os
 import telebot
-from config import APP_URL, bot_token
 from flask import Flask, request
-
+bot_token = "5098531929:AAE6JThL5yRwXJfSKwF2atzBnb-yT9nyu-4"
+APP_URL = f'https://parapam.herokuapp.com/{bot_token}'
 bot = telebot.TeleBot(bot_token)
 server = Flask(__name__)
 
