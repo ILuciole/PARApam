@@ -37,10 +37,11 @@ def start(message):
 
 @bot.message_handler(commands=["day"])
 def get_week_days(message):
+    chat_id = message.chat.id
     db_object.execute(f"SELECT * FROM day")
     the_day = db_object.fetchall()
     for row in the_day:
-        bot.send_message(message, row[1])
+        bot.send_message(chat_id, row[1])
     update_messages_count(message.from_user.id)
 
 # @bot.message_handler(commands=["stats"])
