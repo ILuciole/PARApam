@@ -10,20 +10,20 @@ logger = telebot.logger
 logger.setLevel(logging.DEBUG)
 
 # We guarantee that the server will start only with a direct call to the script __main__
-if __name__ == '__main__':
+if __name__ == "__main__":
     bot.remove_webhook()
     bot.set_webhook(url=APP_URL)
-    server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    server.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
     username = message.from_user.usermname
-    bot.reply_to(message, f'Hello, {username}!')
+    bot.reply_to(message, f"Hello, {username}!")
 
 
 # Redirect from the Flask server to the bot
-@server.route('/' + BOT_TOKEN, methods=['POST'])
+@server.route(f"/{BOT_TOKEN}", methods=["POST"])
 def redirect_message():
     json_string = request.get_data().decode('utf-8')
     update = telebot.types.Update.de_json(json_string)
