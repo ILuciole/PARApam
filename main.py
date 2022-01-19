@@ -1,6 +1,7 @@
 import os
 import telebot
 import logging
+import psycopg2
 from config import *
 from flask import Flask, request
 
@@ -10,10 +11,23 @@ logger = telebot.logger
 logger.setLevel(logging.DEBUG)
 
 
+db_connetion = psycopg2.connect(DB_URI, sslmode="require")
+db_object = db_connetion.cursor()
+
+
+
 @bot.message_handler(commands=["start"])
 def start(message):
+    id = message.from_user.id
     username = message.from_user.username
     bot.reply_to(message, f"Hello, {username}!")
+
+    db_object.execute(f"SELECT id FROM users WHERE id = {id}")
+    result = db_object.fetchone()
+
+    if not result:
+        db_object.execute("INSERT INTO users(id, username, messange) VALUES (%s, %s, %s)", (id, username, 0))
+        db_connetion.commit()
 
 
 @server.route(f"/{BOT_TOKEN}", methods=["POST"])
