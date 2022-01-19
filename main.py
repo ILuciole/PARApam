@@ -41,6 +41,7 @@ def get_week_days(message):
     data = db_object.fetchall()
     for i, item in enumerate(data):
         bot.reply_to(message, data.__str__())
+        break
     update_messages_count(message.from_user.id)
 
 # @bot.message_handler(commands=["stats"])
