@@ -37,7 +37,7 @@ def start(message):
 
 @bot.message_handler(commands=["day"])
 def get_week_days(message):
-    db_object.execute("SELECT dayname FROM day WHERE day = %s")
+    db_object.execute(f"SELECT * FROM day")
     the_day = db_object.fetchall()
     for row in the_day:
         bot.reply_to(message, row[1])
