@@ -1,3 +1,2 @@
-BOT_TOKEN = "5098531929:AAE6JThL5yRwXJfSKwF2atzBnb-yT9nyu-4"
+BOT_TOKEN = "5084334710:AAEvgocyKbDOprxRLpgKiEnCPJ37cS3APGI"
 APP_URL = "https://parapam.herokuapp.com/" + BOT_TOKEN
-
