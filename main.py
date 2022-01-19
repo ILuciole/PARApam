@@ -40,7 +40,7 @@ def get_week_days(message):
     db_object.execute(f"SELECT * FROM day")
     the_day = db_object.fetchall()
     for row in the_day:
-        bot.reply_to(message, row[1])
+        bot.send_message(message, row[1])
     update_messages_count(message.from_user.id)
 
 # @bot.message_handler(commands=["stats"])
