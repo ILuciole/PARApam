@@ -18,12 +18,7 @@ if __name__ == "__main__":
 
 @bot.message_handler(commands=["start"])
 def start(message):
-    bot.reply_to(message, "Hello! " + message.from_user)
-
-
-@bot.message_handler(func=lambda message: True, content_types=['text'])
-def echo(messange):
-    bot.reply_to(messange, messange.text)
+    bot.reply_to(message, "Hello! " + message.from_user.username)
 
 
 # Redirect from the Flask server to the bot
