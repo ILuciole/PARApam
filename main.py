@@ -45,7 +45,7 @@ def bot_menu(message):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         back = types.KeyboardButton("Назад")
         markup.add(back)
-        get_week_days(message)
+        get_week_days()
     elif message.text == "Назад":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         day_buttton = types.KeyboardButton("Дни недели")
