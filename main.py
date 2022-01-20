@@ -77,6 +77,9 @@ def bot_menu(message):
         markup.add(day_buttton)
         bot.reply_to(message, "Назад", reply_markup=markup)
 
+    else:
+        chat_id = message.chat.id
+        bot.send_message(chat_id, 'Ты лох')
 # @bot.message_handler(commands=["stats"])
 # def get_stats(message):
 #     db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
