@@ -23,8 +23,8 @@ def update_messages_count(user_id):
 @bot.message_handler(commands=["start"])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    day_buttton = types.KeyboardButton("Дни недели")
-    markup.add(day_buttton)
+    day_button = types.KeyboardButton("Дни недели")
+    markup.add(day_button)
     user_id = message.from_user.id
     username = message.from_user.username
     bot.reply_to(message, f"Hello, {username}!", reply_markup=markup)
