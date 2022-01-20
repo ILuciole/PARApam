@@ -54,16 +54,28 @@ def start(message):
 #
 #     update_messages_count(message.from_user.id)
 #
+@bot.message_handler(content_types=["text"])
+def bot_menu(message):
+    if message.text == "Дни недели":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        back = types.KeyboardButton("Назад")
+        markup.add(back)
 
-@bot.message_handler(commands=["day"])
-def get_week_days(message):
-    chat_id = message.chat.id
-    db_object.execute(f"SELECT * FROM day")
-    the_day = db_object.fetchall()
-    for row in the_day:
-        bot.send_message(chat_id, row[1])
+        @bot.message_handler(commands=["day"])
+        def get_week_days(message2):
+            chat_id = message2.chat.id
+            db_object.execute(f"SELECT * FROM day")
+            the_day = db_object.fetchall()
+            for row in the_day:
+                bot.send_message(chat_id, row[1])
 
-    update_messages_count(message.from_user.id)
+            update_messages_count(message2.from_user.id)
+
+    elif message.text == "Назад":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        day_buttton = types.KeyboardButton("Дни недели")
+        markup.add(day_buttton)
+        bot.reply_to(message, "Назад", reply_markup=markup)
 
 
 # @bot.message_handler(commands=["stats"])
