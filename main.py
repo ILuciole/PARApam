@@ -1,5 +1,6 @@
 import os
 import telebot
+from telebot import types
 import logging
 import psycopg2
 from config import *
@@ -21,9 +22,12 @@ def update_messages_count(user_id):
 
 @bot.message_handler(commands=["start"])
 def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    day_buttton = types.KeyboardButton('Дни недели')
+    markup.add(day_buttton)
     user_id = message.from_user.id
     username = message.from_user.username
-    bot.reply_to(message, f"Hello, {username}!")
+    bot.reply_to(message, f"Hello, {username}!", reply_markup=markup)
 
     db_object.execute(f"SELECT id FROM users WHERE id = {user_id}")
     result = db_object.fetchone()
@@ -38,11 +42,12 @@ def start(message):
 @bot.message_handler(commands=["day"])
 def get_week_days(message):
     chat_id = message.chat.id
-    db_object.execute(f"SELECT * FROM day")
+    db_object.execute(f"SELECT * FROM schedule")
     the_day = db_object.fetchall()
     for row in the_day:
         bot.send_message(chat_id, row[1])
     update_messages_count(message.from_user.id)
+
 
 # @bot.message_handler(commands=["stats"])
 # def get_stats(message):
