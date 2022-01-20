@@ -54,18 +54,14 @@ def start(message):
 #
 #     update_messages_count(message.from_user.id)
 
-@bot.message_handler(content_types=["text"])
 @bot.message_handler(commands=["day"])
 def get_week_days(message):
     chat_id = message.chat.id
-    if message.text == "day":
+    db_object.execute(f"SELECT * FROM schedule")
+    the_day = db_object.fetchall()
+    for row in the_day:
+        bot.send_message(chat_id, row[1])
 
-        db_object.execute(f"SELECT * FROM schedule")
-        the_day = db_object.fetchall()
-        for row in the_day:
-            bot.send_message(chat_id, row[1])
-    else:
-        bot.send_message(chat_id, 'не работает')
     update_messages_count(message.from_user.id)
 
 
