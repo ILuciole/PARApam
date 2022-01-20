@@ -69,15 +69,15 @@ def bot_menu(message):
             for row in the_day:
                 bot.send_message(chat_id, row[1])
 
-            update_messages_count(message2.from_user.id)
+            # update_messages_count(message2.from_user.id)
 
     elif message.text == "Назад":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        day_buttton = types.KeyboardButton("Дни недели")
+        day_buttton = types.KeyboardButton("Лох")
         markup.add(day_buttton)
         bot.reply_to(message, "Назад", reply_markup=markup)
 
-
+    else
 # @bot.message_handler(commands=["stats"])
 # def get_stats(message):
 #     db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
