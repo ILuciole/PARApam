@@ -23,7 +23,7 @@ def update_messages_count(user_id):
 @bot.message_handler(commands=["start"])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    day_buttton = types.KeyboardButton("day")
+    day_buttton = types.KeyboardButton("Дни недели")
     markup.add(day_buttton)
     user_id = message.from_user.id
     username = message.from_user.username
@@ -58,7 +58,7 @@ def bot_menu(message):
 @bot.message_handler(commands=["day"])
 def get_week_days(message):
     chat_id = message.chat.id
-    db_object.execute(f"SELECT * FROM day")
+    db_object.execute(f"SELECT dayname FROM day")
     the_day = db_object.fetchall()
     for row in the_day:
         bot.send_message(chat_id, row[0])
