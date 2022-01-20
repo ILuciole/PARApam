@@ -67,7 +67,7 @@ def bot_menu(message):
             db_object.execute(f"SELECT * FROM day")
             the_day = db_object.fetchall()
             for row in the_day:
-                bot.send_message(chat_id, row[1])
+                bot.send_message(chat_id, row[1], reply_markup=markup)
 
             # update_messages_count(message2.from_user.id)
 
