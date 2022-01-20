@@ -79,7 +79,7 @@ def bot_menu(message):
     if message.text == "Дни недели":
         get_week_days(message)
     elif message.text == "Данные пользователя":
-        bot.send_message(message.chat.id, "В процессе разработки")
+        get_stats(message)
     elif message.text == "Группы":
         bot.send_message(message.chat.id, "В процессе разработки")
     elif message.text == "Предметы":
