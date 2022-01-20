@@ -23,7 +23,7 @@ def update_messages_count(user_id):
 @bot.message_handler(commands=["start"])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    day_buttton = types.KeyboardButton('Дни недели')
+    day_buttton = types.KeyboardButton("Дни недели")
     markup.add(day_buttton)
     user_id = message.from_user.id
     username = message.from_user.username
@@ -37,6 +37,23 @@ def start(message):
         db_connection.commit()
 
     update_messages_count(user_id)
+
+
+@bot.message_handler(content_types=["text"])
+def bot_menu(message):
+    if message.chat.type == 'private':
+        if message.text == "Дни недели":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            back = types.KeyboardButton("Назад")
+            markup.add(back)
+            get_week_days()
+        elif message.text == "Назад":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            day_buttton = types.KeyboardButton("Дни недели")
+            markup.add(day_buttton)
+            bot.reply_to(message, "Назад", reply_markup=markup)
+
+    update_messages_count(message.from_user.id)
 
 
 @bot.message_handler(commands=["day"])
