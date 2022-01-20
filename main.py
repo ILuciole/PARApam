@@ -77,7 +77,6 @@ def bot_menu(message):
         markup.add(day_buttton)
         bot.reply_to(message, "Назад", reply_markup=markup)
 
-    else
 # @bot.message_handler(commands=["stats"])
 # def get_stats(message):
 #     db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
