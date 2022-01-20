@@ -61,7 +61,7 @@ def get_week_days(message):
     db_object.execute(f"SELECT * FROM day")
     the_day = db_object.fetchall()
     for row in the_day:
-        bot.send_message(chat_id, row[1])
+        bot.send_message(chat_id, row[0])
 
     update_messages_count(message.from_user.id)
 
