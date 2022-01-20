@@ -39,31 +39,33 @@ def start(message):
     update_messages_count(user_id)
 
 
-# @bot.message_handler(content_types=["text"])
-# def bot_menu(message):
-#     if message.text == "Дни недели":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         back = types.KeyboardButton("Назад")
-#         markup.add(back)
-#         get_week_days()
-#     elif message.text == "Назад":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         day_buttton = types.KeyboardButton("Дни недели")
-#         markup.add(day_buttton)
-#         bot.reply_to(message, "Назад", reply_markup=markup)
-#
-#     update_messages_count(message.from_user.id)
+@bot.message_handler(content_types=["text"])
+def bot_menu(message):
+    if message.text == "Дни недели":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        back = types.KeyboardButton("Назад")
+        markup.add(back)
+        get_week_days(r)
+    elif message.text == "Назад":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        day_buttton = types.KeyboardButton("Дни недели")
+        markup.add(day_buttton)
+        bot.reply_to(message, "Назад", reply_markup=markup)
+
+    update_messages_count(message.from_user.id)
 
 
-@bot.message_handler(commands=["day"])
+# @bot.message_handler(commands=["day"])
 def get_week_days(message):
+    global r
     chat_id = message.chat.id
     db_object.execute(f"SELECT * FROM day")
     the_day = db_object.fetchall()
     for row in the_day:
-        bot.send_message(chat_id, row[1])
-
+        r = bot.send_message(chat_id, row[1])
     update_messages_count(message.from_user.id)
+    return r
+
 
 
 # @bot.message_handler(commands=["stats"])
