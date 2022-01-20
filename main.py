@@ -41,17 +41,16 @@ def start(message):
 
 @bot.message_handler(content_types=["text"])
 def bot_menu(message):
-    if message.chat.type == 'private':
-        if message.text == "Дни недели":
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            back = types.KeyboardButton("Назад")
-            markup.add(back)
-            get_week_days()
-        elif message.text == "Назад":
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            day_buttton = types.KeyboardButton("Дни недели")
-            markup.add(day_buttton)
-            bot.reply_to(message, "Назад", reply_markup=markup)
+    if message.text == "Дни недели":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        back = types.KeyboardButton("Назад")
+        markup.add(back)
+        get_week_days(message)
+    elif message.text == "Назад":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        day_buttton = types.KeyboardButton("Дни недели")
+        markup.add(day_buttton)
+        bot.reply_to(message, "Назад", reply_markup=markup)
 
     update_messages_count(message.from_user.id)
 
