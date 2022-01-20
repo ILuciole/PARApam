@@ -60,15 +60,20 @@ def get_week_days(message):
 
 @bot.message_handler(commands=["stats"])
 def get_stats(message):
-    db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
-    result = db_object.fetchall()
+    db_object.execute("SELECT *, group_number from users LEFT JOIN groups on groups.id=users.group_id")
+    db_connection.commit()
+    # db_object.execute("SELECT *, group_id from schedule LEFT JOIN users on users.id=schedule.users_id")
+    # db_connection.commit()
+    # db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
 
+
+    result = db_object.fetchall()
     if not result:
         bot.reply_to(message, "No data...")
     else:
         reply_message = "users db:\n"
         for i, item in enumerate(result):
-            reply_message += f"{item[1].strip()} id({item[0]}) group({item[3]}) : {item[2]} messages.\n"
+            reply_message += f"{item[1]} id({item[0]}) group({item[5]}) : {item[2]} messages.\n"
         bot.reply_to(message, reply_message)
 
     update_messages_count(message.from_user.id)
