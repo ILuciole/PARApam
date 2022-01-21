@@ -1,5 +1,6 @@
 # PARApam
 @PARApamUA_bot
+
 In "modern" educational institutions in Nikolaev there is no way to get class schedules in electronic form in a convenient format.
 To do this, I started developing a bot that will inform students about upcoming classes and show their schedules for the week.
 
