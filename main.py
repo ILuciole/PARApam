@@ -44,9 +44,6 @@ def start(message):
     update_messages_count(user_id)
 
 
-
-
-
 @bot.message_handler(commands=["day"])
 def get_week_days(message):
     chat_id = message.chat.id
@@ -65,7 +62,6 @@ def get_stats(message):
     # db_object.execute("SELECT *, group_id from schedule LEFT JOIN users on users.id=schedule.users_id")
     # db_connection.commit()
     # db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
-
 
     result = db_object.fetchall()
     if not result:
@@ -115,35 +111,3 @@ if __name__ == "__main__":
     bot.remove_webhook()
     bot.set_webhook(url=APP_URL)
     server.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-
-##################################################################
-# @bot.message_handler(commands=["stats"])
-# def get_stats(message):
-#     db_object.execute("SELECT * FROM users ORDER BY messanges DESC LIMIT 10")
-#     result = db_object.fetchall()
-#
-#     if not result:
-#         bot.reply_to(message, "No data...")
-#     else:
-#         reply_message = "- Top flooders:\n"
-#         for i, item in enumerate(result):
-#             reply_message += f"[{i + 1}] {item[1].strip()} ({item[0]}) : {item[2]} messages.\n"
-#         bot.reply_to(message, reply_message)
-#
-#     update_messages_count(message.from_user.id)
-
-
-# @bot.message_handler(content_types=["text"])
-# def bot_menu(message):
-#     if message.text == "Дни недели":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         back = types.KeyboardButton("Назад")
-#         markup.add(back)
-#         get_week_days()
-#     elif message.text == "Назад":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         day_buttton = types.KeyboardButton("Дни недели")
-#         markup.add(day_buttton)
-#         bot.reply_to(message, "Назад", reply_markup=markup)
-#
-#     update_messages_count(message.from_user.id)
